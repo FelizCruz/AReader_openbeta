@@ -25,17 +25,21 @@ jobs:
       - name: Generate iOS Platform Project
         run: flutter create --platforms=ios --org com.webnovel --project-name arcreader .
 
-      - name: Disable Xcode Code Signing Requirements
+      - name: Inject Manual Signing & Dummy Development Team
         run: |
           python3 -c "
+          import re
           pbx_path = 'ios/Runner.xcodeproj/project.pbxproj'
           with open(pbx_path, 'r') as f:
               content = f.read()
-          content = content.replace('CODE_SIGN_IDENTITY = \"iPhone Developer\";', 'CODE_SIGN_IDENTITY = \"\";\n\t\t\t\tCODE_SIGNING_ALLOWED = NO;\n\t\t\t\tCODE_SIGNING_REQUIRED = NO;')
-          content = content.replace('CODE_SIGN_IDENTITY = \"Apple Development\";', 'CODE_SIGN_IDENTITY = \"\";\n\t\t\t\tCODE_SIGNING_ALLOWED = NO;\n\t\t\t\tCODE_SIGNING_REQUIRED = NO;')
+
+          # Switch to manual code signing and inject dummy 10-char team ID
+          content = content.replace('CODE_SIGN_STYLE = Automatic;', 'CODE_SIGN_STYLE = Manual;\n\t\t\t\tDEVELOPMENT_TEAM = \"1234567890\";\n\t\t\t\tCODE_SIGNING_ALLOWED = NO;\n\t\t\t\tCODE_SIGNING_REQUIRED = NO;\n\t\t\t\tCODE_SIGN_IDENTITY = \"\";')
+          content = re.sub(r'buildSettings\s*=\s*\{', 'buildSettings = {\n\t\t\t\tDEVELOPMENT_TEAM = \"1234567890\";\n\t\t\t\tCODE_SIGNING_ALLOWED = NO;\n\t\t\t\tCODE_SIGNING_REQUIRED = NO;', content)
+
           with open(pbx_path, 'w') as f:
               f.write(content)
-          print('Patched Xcode project file to disable code signing requirements.')
+          print('Successfully injected manual code signing and dummy team ID into project.pbxproj.')
           "
 
       - name: Install Dependencies
@@ -44,10 +48,21 @@ jobs:
       - name: Run Test Suite
         run: python3 test/run_tests.py
 
-      - name: Build iOS Application (Unsigned Device IPA)
+      - name: Build Unsigned iOS App via xcodebuild
         run: |
-          flutter build ios --release --no-codesign
-          cd build/ios/iphoneos
+          flutter build ios --release --no-codesign --config-only
+          xcodebuild -workspace ios/Runner.xcworkspace \
+                     -scheme Runner \
+                     -configuration Release \
+                     -sdk iphoneos \
+                     -derivedDataPath build/ios \
+                     CODE_SIGNING_ALLOWED=NO \
+                     CODE_SIGNING_REQUIRED=NO \
+                     CODE_SIGN_IDENTITY="" \
+                     CODE_SIGN_ENTITLEMENTS="" \
+                     DEVELOPMENT_TEAM="1234567890" \
+                     build
+          cd build/ios/Build/Products/Release-iphoneos
           mkdir -p Payload
           cp -R Runner.app Payload/
           zip -r ArcReader-Custom-v1.0.31.ipa Payload
@@ -56,5 +71,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ArcReader-Custom-v1.0.31-IPA
-          path: build/ios/iphoneos/ArcReader-Custom-v1.0.31.ipa
+          path: build/ios/Build/Products/Release-iphoneos/ArcReader-Custom-v1.0.31.ipa
           retention-days: 14
