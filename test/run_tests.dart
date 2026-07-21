@@ -1,3 +1,6 @@
+// ignore_for_file: avoid_print
+
+import 'package:flutter/foundation.dart';
 import 'package:arcreader_custom/download/download_queue_manager.dart';
 import 'package:arcreader_custom/download/download_task.dart';
 import 'package:arcreader_custom/epub/epub_metadata.dart';
@@ -9,7 +12,7 @@ import 'package:arcreader_custom/theme/eink_palette.dart';
 import 'package:arcreader_custom/theme/eink_theme_controller.dart';
 
 void main() async {
-  print('=== RUNNING DEVELOPER FEATURE SUITE TESTS ===\n');
+  debugPrint('=== RUNNING DEVELOPER FEATURE SUITE TESTS ===\n');
 
   // Test 1: Download Queue Manager
   print('[1/4] Testing Download Queue System...');
