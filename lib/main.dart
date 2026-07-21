@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'download/download_queue_manager.dart';
-import 'download/download_status.dart';
 import 'download/download_task.dart';
 import 'epub/epub_metadata.dart';
 import 'epub/epub_packager.dart';
@@ -147,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
             color: bg == Colors.black ? const Color(0xFF111111) : Colors.white,
             child: ListTile(
               title: Text('The Great Web Novel', style: TextStyle(color: fg, fontWeight: FontWeight.bold)),
-              subtitle: Text('Author: Master Author • Chapter 12', style: TextStyle(color: fg.withOpacity(0.7))),
+              subtitle: Text('Author: Master Author • Chapter 12', style: TextStyle(color: fg.withAlpha(178))),
               trailing: PopupMenuButton<String>(
                 onSelected: (val) {
                   if (val == 'epub') _exportEpub();

@@ -17,7 +17,7 @@ class ShelfSerializer {
       
       // Validate required fields
       if (!decoded.containsKey('novels') || decoded['novels'] is! List) {
-        throw FormatException('Invalid .arcshelf format: missing "novels" array');
+        throw const FormatException('Invalid .arcshelf format: missing "novels" array');
       }
 
       return ShelfManifest.fromJson(decoded);

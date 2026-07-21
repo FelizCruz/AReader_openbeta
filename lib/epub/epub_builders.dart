@@ -113,7 +113,7 @@ $spineBuffer  </spine>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <title>Table of Contents</title>
+  <title>$title - Table of Contents</title>
   <link rel="stylesheet" type="text/css" href="Styles/style.css"/>
 </head>
 <body>

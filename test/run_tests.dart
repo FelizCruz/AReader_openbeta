@@ -1,13 +1,10 @@
 import 'package:arcreader_custom/download/download_queue_manager.dart';
-import 'package:arcreader_custom/download/download_status.dart';
 import 'package:arcreader_custom/download/download_task.dart';
-import 'package:arcreader_custom/epub/epub_builders.dart';
 import 'package:arcreader_custom/epub/epub_metadata.dart';
 import 'package:arcreader_custom/epub/epub_packager.dart';
 import 'package:arcreader_custom/epub/xhtml_sanitizer.dart';
 import 'package:arcreader_custom/shelf/shelf_import_export_service.dart';
 import 'package:arcreader_custom/shelf/shelf_model.dart';
-import 'package:arcreader_custom/shelf/shelf_serializer.dart';
 import 'package:arcreader_custom/theme/eink_palette.dart';
 import 'package:arcreader_custom/theme/eink_theme_controller.dart';
 
