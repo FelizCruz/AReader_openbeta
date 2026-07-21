@@ -25,16 +25,29 @@ jobs:
       - name: Generate iOS Platform Project
         run: flutter create --platforms=ios --org com.webnovel --project-name arcreader .
 
+      - name: Disable Xcode Code Signing Requirements
+        run: |
+          python3 -c "
+          pbx_path = 'ios/Runner.xcodeproj/project.pbxproj'
+          with open(pbx_path, 'r') as f:
+              content = f.read()
+          content = content.replace('CODE_SIGN_IDENTITY = \"iPhone Developer\";', 'CODE_SIGN_IDENTITY = \"\";\n\t\t\t\tCODE_SIGNING_ALLOWED = NO;\n\t\t\t\tCODE_SIGNING_REQUIRED = NO;')
+          content = content.replace('CODE_SIGN_IDENTITY = \"Apple Development\";', 'CODE_SIGN_IDENTITY = \"\";\n\t\t\t\tCODE_SIGNING_ALLOWED = NO;\n\t\t\t\tCODE_SIGNING_REQUIRED = NO;')
+          with open(pbx_path, 'w') as f:
+              f.write(content)
+          print('Patched Xcode project file to disable code signing requirements.')
+          "
+
       - name: Install Dependencies
         run: flutter pub get
 
       - name: Run Test Suite
         run: python3 test/run_tests.py
 
-      - name: Build iOS Release Package
+      - name: Build iOS Application (Unsigned Device IPA)
         run: |
-          flutter build ios --release --no-codesign --simulator
-          cd build/ios/iphonesimulator
+          flutter build ios --release --no-codesign
+          cd build/ios/iphoneos
           mkdir -p Payload
           cp -R Runner.app Payload/
           zip -r ArcReader-Custom-v1.0.31.ipa Payload
@@ -43,5 +56,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ArcReader-Custom-v1.0.31-IPA
-          path: build/ios/iphonesimulator/ArcReader-Custom-v1.0.31.ipa
+          path: build/ios/iphoneos/ArcReader-Custom-v1.0.31.ipa
           retention-days: 14
