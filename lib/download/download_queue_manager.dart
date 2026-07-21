@@ -1,4 +1,4 @@
-import 'async';
+import 'dart:async';
 import 'download_status.dart';
 import 'download_task.dart';
 

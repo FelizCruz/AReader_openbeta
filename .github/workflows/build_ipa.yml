@@ -33,7 +33,6 @@ jobs:
           with open(pbx_path, 'r') as f:
               content = f.read()
 
-          # Switch to manual code signing and inject dummy 10-char team ID
           content = content.replace('CODE_SIGN_STYLE = Automatic;', 'CODE_SIGN_STYLE = Manual;\n\t\t\t\tDEVELOPMENT_TEAM = \"1234567890\";\n\t\t\t\tCODE_SIGNING_ALLOWED = NO;\n\t\t\t\tCODE_SIGNING_REQUIRED = NO;\n\t\t\t\tCODE_SIGN_IDENTITY = \"\";')
           content = re.sub(r'buildSettings\s*=\s*\{', 'buildSettings = {\n\t\t\t\tDEVELOPMENT_TEAM = \"1234567890\";\n\t\t\t\tCODE_SIGNING_ALLOWED = NO;\n\t\t\t\tCODE_SIGNING_REQUIRED = NO;', content)
 
@@ -44,6 +43,9 @@ jobs:
 
       - name: Install Dependencies
         run: flutter pub get
+
+      - name: Static Code Analysis
+        run: flutter analyze
 
       - name: Run Test Suite
         run: python3 test/run_tests.py
