@@ -1,0 +1,21 @@
+# Flutter / Dart ignores
+.dart_tool/
+.idea/
+.packages
+.pub-cache/
+.pub/
+build/
+
+# macOS / iOS ignores
+*.mode1v3
+*.mode2v3
+*.moved-aside
+*.pbxuser
+*.perspectivev3
+*.mode1v3
+*.mode2v3
+DerivedData/
+
+# Misc
+.DS_Store
+*.log
