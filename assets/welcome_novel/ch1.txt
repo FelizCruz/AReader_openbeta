@@ -1,0 +1,17 @@
+Hello, reader — and welcome.
+
+This little book is your guide to ArcReader: four short chapters, about five minutes. Feel free to delete it when you're done — it won't take offense.
+
+First, the screen you're looking at. Tap once in the middle of the page and your toolbar appears, top and bottom. Tap again and it slides away, leaving just you and the words.
+
+<img src="https://cdn.arcreaders.app/welcome_novel/img/tap_toolbar.png">
+
+Now find the "Display" button — the Tt icon in the bottom bar. This is where the reader becomes yours: text size, fonts, margins, spacing — everything previews live. And try the six themes, from light and sepia to dark, void, and e-ink.
+
+<img src="https://cdn.arcreaders.app/welcome_novel/img/aa_themes.png">
+
+Prefer swiping pages like a paper book, or scrolling like a long article? Both live in that same Display menu.
+
+And wherever you stop, ArcReader remembers — down to the paragraph.
+
+On to chapter two: let's find you something real to read.

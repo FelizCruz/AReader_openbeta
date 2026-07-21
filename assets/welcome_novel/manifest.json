@@ -1,0 +1,13 @@
+{
+  "title": "Welcome to ArcReader",
+  "author": "ArcReader Team",
+  "synopsis": "A short guide disguised as a novel. Four tiny chapters that show you how to read, listen, and build your library — try everything right here, on this book.",
+  "status": "completed",
+  "tags": ["guide"],
+  "chapters": [
+    { "idx": 1, "title": "Welcome to ArcReader", "file": "ch1.txt" },
+    { "idx": 2, "title": "Add Your First Novel", "file": "ch2.txt" },
+    { "idx": 3, "title": "Listen Instead of Read", "file": "ch3.txt" },
+    { "idx": 4, "title": "Read Anywhere, Even Offline", "file": "ch4.txt" }
+  ]
+}
